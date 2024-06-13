@@ -21,9 +21,9 @@ const Menu = () => {
     <div className="h-full">
       <ResizableBox
         width={200}
-        height={window.innerHeight}
+        height={1000}
         minConstraints={[200, 1000]}
-        maxConstraints={[400, window && window.innerHeight]}
+        maxConstraints={[400, 100]}
         resizeHandles={["e"]}
       >
         <div className="w-full p-8 flex gap-4 flex-col">

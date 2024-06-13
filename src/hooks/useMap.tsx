@@ -29,6 +29,7 @@ const useMap = ({
   useGeographic();
 
   useEffect(() => {
+    const currentMapRef = mapRef.current;
     if (mapRef.current) {
       const vectorSource = new VectorSource();
       const vectorLayer = new VectorLayer({
@@ -72,7 +73,7 @@ const useMap = ({
       initialMapRef.current.updateSize();
     }
     return () => {
-      if (mapRef.current && initialMapRef.current) {
+      if (currentMapRef && initialMapRef.current) {
         initialMapRef.current.setTarget(undefined);
       }
     };
