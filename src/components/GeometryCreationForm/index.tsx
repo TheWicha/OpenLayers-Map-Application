@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
-import Input from "./Input";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "@/src/redux/store";
-
+import { FormState, RootState, AppDispatch } from "@/src/redux/store";
+import { useDispatch } from "react-redux";
+import { resetForm, submitForm } from "@/src/redux/slices/formSlice";
+import { unwrapResult } from "@reduxjs/toolkit";
+import Input from "./Input";
 const GeometryCreationForm = () => {
   const [form, setForm] = useState<{
     name: string;
@@ -13,7 +15,7 @@ const GeometryCreationForm = () => {
     creationDate: "",
     wkt: [],
   });
-
+  const dispatch: AppDispatch = useDispatch();
   const wtk = useSelector((state: RootState) => state.wtk);
 
   useEffect(() => {
@@ -32,11 +34,22 @@ const GeometryCreationForm = () => {
   const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
 
-    setForm({
-      name: "",
-      creationDate: "",
-      wkt: [],
-    });
+    dispatch(submitForm(form))
+      .then((result) => unwrapResult(result).payload)
+      .then((response) => {
+        console.log(response, "response");
+
+        setForm({
+          name: "",
+          creationDate: "",
+          wkt: [],
+        });
+
+        dispatch(resetForm());
+      })
+      .catch((error: Error) =>
+        console.error("Failed to submit the form: ", error.message)
+      );
   };
 
   return (
@@ -67,7 +80,7 @@ const GeometryCreationForm = () => {
         disabled
       />
       <input
-        className="p-4 bg-green-400 w-36 self-center my-5 rounded-lg"
+        className="p-4 bg-green-400 w-36 self-center my-5 rounded-lg cursor-pointer"
         type="submit"
         value="Submit"
       />
