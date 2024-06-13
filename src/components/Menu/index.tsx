@@ -4,6 +4,7 @@ import { ResizableBox } from "react-resizable";
 import MenuItem from "./menu-item";
 import { useDispatch } from "react-redux";
 import { updateGeometry } from "@/src/redux/slices/geometrySlice";
+import { startDrawing, stopDrawing } from "@/src/redux/slices/drawSlice";
 import { GeometryType } from "@/src/types";
 
 const Menu = () => {
@@ -13,6 +14,7 @@ const Menu = () => {
     const geometry = e.currentTarget.name as GeometryType;
     setSelectedItem(geometry);
     dispatch(updateGeometry(geometry));
+    dispatch(startDrawing());
   };
 
   return (

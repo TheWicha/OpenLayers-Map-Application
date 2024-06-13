@@ -49,6 +49,10 @@ const useMap = ({
         }),
       });
 
+      if (drawRef.current) {
+        initialMapRef.current.removeInteraction(drawRef.current);
+      }
+
       drawRef.current = new Draw({
         source: vectorSource,
         type: geometry,
@@ -63,6 +67,8 @@ const useMap = ({
         }
       });
 
+      initialMapRef.current.addInteraction(drawRef.current);
+
       initialMapRef.current.updateSize();
     }
     return () => {
@@ -70,7 +76,7 @@ const useMap = ({
         initialMapRef.current.setTarget(undefined);
       }
     };
-  }, [mapRef, setWtk]);
+  }, [mapRef, setWtk, geometry]);
 
   useEffect(() => {
     if (initialMapRef.current && drawRef.current) {

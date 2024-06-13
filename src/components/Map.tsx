@@ -8,11 +8,12 @@ const MapComponent = () => {
   const [wtk, setWtk] = useState("");
   const mapRef = useRef(null);
   const currentGeometry = useSelector((state: RootState) => state.geometry);
+  const draw = useSelector((state: RootState) => state.draw);
 
   useMap({
     mapRef,
     setWtk,
-    shouldStartDrawing: false,
+    shouldStartDrawing: draw.shouldStartDrawing,
     geometry: currentGeometry.type,
   });
 
