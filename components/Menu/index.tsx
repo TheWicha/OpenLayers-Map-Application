@@ -1,9 +1,15 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { ResizableBox } from "react-resizable";
 import MenuItem from "./menu-item";
 
 const Menu = () => {
+  const [selectedItem, setSelectedItem] = useState("");
+
+  const handleItemClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setSelectedItem(e.currentTarget.name);
+  };
+
   return (
     <div className="h-full">
       <ResizableBox
@@ -13,10 +19,22 @@ const Menu = () => {
         maxConstraints={[400, window && window.innerHeight]}
         resizeHandles={["e"]}
       >
-        <div className="w-full p-8 flex gap-4 flex-col cursor-pointer">
-          <MenuItem title="Point" />
-          <MenuItem title="LineString" />
-          <MenuItem title="Polygon" />
+        <div className="w-full p-8 flex gap-4 flex-col">
+          {selectedItem === "Point" ? (
+            <div>form for Point</div>
+          ) : (
+            <MenuItem title="Point" onClick={handleItemClick} />
+          )}
+          {selectedItem === "LineString" ? (
+            <div>form for LineString</div>
+          ) : (
+            <MenuItem title="LineString" onClick={handleItemClick} />
+          )}
+          {selectedItem === "Polygon" ? (
+            <div>form for Polygon</div>
+          ) : (
+            <MenuItem title="Polygon" onClick={handleItemClick} />
+          )}
         </div>
       </ResizableBox>
     </div>
