@@ -5,6 +5,7 @@ import View from "ol/View";
 import TileLayer from "ol/layer/Tile";
 import OSM from "ol/source/OSM";
 import { useGeographic } from "ol/proj";
+import { PolandGeoCoordinates } from "@/constants";
 
 const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
   const initialMapRef = useRef<Map | null>(null);
@@ -21,7 +22,7 @@ const useMap = (mapRef: React.RefObject<HTMLDivElement>) => {
           }),
         ],
         view: new View({
-          center: [19.1451, 51.9194],
+          center: PolandGeoCoordinates,
           zoom: 7,
         }),
       });
