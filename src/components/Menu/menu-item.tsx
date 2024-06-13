@@ -10,7 +10,7 @@ const MenuItem = ({ title, onClick }: MenuItemProps) => {
     <button
       name={title}
       onClick={onClick}
-      className="text-center  cursor-pointer hover:bg-blue-100 bg-blue-200 p-4 rounded-md max-w-60"
+      className="text-center  cursor-pointer hover:bg-blue-100 bg-blue-200 p-4 rounded-md  w-64"
     >
       {title}
     </button>

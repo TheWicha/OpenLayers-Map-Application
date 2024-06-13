@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { updateGeometry } from "@/src/redux/slices/geometrySlice";
 import { startDrawing, stopDrawing } from "@/src/redux/slices/drawSlice";
 import { GeometryType } from "@/src/types";
+import GeometryCreationForm from "@/src/components/GeometryCreationForm";
 
 const Menu = () => {
   const [selectedItem, setSelectedItem] = useState("");
@@ -20,25 +21,25 @@ const Menu = () => {
   return (
     <div className="h-full">
       <ResizableBox
-        width={200}
+        width={400}
         height={height}
-        minConstraints={[200, 1000]}
-        maxConstraints={[400, height]}
+        minConstraints={[400, 1000]}
+        maxConstraints={[800, height]}
         resizeHandles={["e"]}
       >
-        <div className="w-full p-8 flex gap-4 flex-col">
+        <div className="w-full py-8 px-4 flex gap-4 flex-col items-center">
           {selectedItem === "Point" ? (
-            <div>form for Point</div>
+            <GeometryCreationForm />
           ) : (
             <MenuItem title="Point" onClick={handleItemClick} />
           )}
           {selectedItem === "LineString" ? (
-            <div>form for LineString</div>
+            <GeometryCreationForm />
           ) : (
             <MenuItem title="LineString" onClick={handleItemClick} />
           )}
           {selectedItem === "Polygon" ? (
-            <div>form for Polygon</div>
+            <GeometryCreationForm />
           ) : (
             <MenuItem title="Polygon" onClick={handleItemClick} />
           )}
