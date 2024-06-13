@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/src/components/Header";
 import Menu from "@/src/components/Menu";
 import "react-resizable/css/styles.css";
+import Providers from "../redux/Providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,11 +21,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Header />
-        <div className="flex">
-          <Menu />
-          {children}
-        </div>
+        <Providers>
+          <Header />
+          <div className="flex">
+            <Menu />
+            {children}
+          </div>
+        </Providers>
       </body>
     </html>
   );
