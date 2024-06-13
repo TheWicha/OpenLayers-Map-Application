@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useState } from "react";
-import useMap from "@/hooks/useMap";
+import useMap from "@/src/hooks/useMap";
 
 const MapComponent = () => {
   const [wtk, setWtk] = useState("");

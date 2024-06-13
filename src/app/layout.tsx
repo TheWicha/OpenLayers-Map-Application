@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import Menu from "@/components/Menu/";
+import Header from "@/src/components/Header";
+import Menu from "@/src/components/Menu";
 import "react-resizable/css/styles.css";
 
 const inter = Inter({ subsets: ["latin"] });
