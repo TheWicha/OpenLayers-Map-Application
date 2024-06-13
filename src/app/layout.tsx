@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
-import Menu from "@/components/Menu";
+import Menu from "@/components/Menu/";
 import "react-resizable/css/styles.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Header />
         <div className="flex">
-          <Menu className="h-full bg-blue-200" />
+          <Menu />
           {children}
         </div>
       </body>

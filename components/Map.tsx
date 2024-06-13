@@ -35,7 +35,7 @@ const MapComponent = () => {
     };
   }, []);
 
-  return <div ref={mapRef} className="map-container" />;
+  return <div ref={mapRef} className="w-full h-screen" />;
 };
 
 export default MapComponent;
