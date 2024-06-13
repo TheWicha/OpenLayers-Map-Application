@@ -1,10 +1,12 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import useMap from "@/hooks/useMap";
 
 const MapComponent = () => {
+  const [wtk, setWtk] = useState("");
+
   const mapRef = useRef(null);
-  useMap(mapRef);
+  useMap(mapRef, setWtk);
 
   return <div ref={mapRef} className="w-full h-screen" />;
 };
