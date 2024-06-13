@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Map from "ol/Map";
 import View from "ol/View";
 import TileLayer from "ol/layer/Tile";
@@ -10,23 +10,20 @@ import OSM from "ol/source/OSM";
 import { useGeographic } from "ol/proj";
 import { PolandGeoCoordinates } from "@/src/constants";
 import { GeometryType } from "@/src/types";
+import { useDispatch } from "react-redux";
+import { updateWtk } from "@/src/redux/slices/wtkSlice";
 
 interface useMapProps {
   mapRef: React.RefObject<HTMLDivElement>;
-  setWtk: (wkt: string) => void;
   shouldStartDrawing: boolean;
   geometry: GeometryType;
 }
-const useMap = ({
-  mapRef,
-  setWtk,
-  shouldStartDrawing,
-  geometry,
-}: useMapProps) => {
+const useMap = ({ mapRef, shouldStartDrawing, geometry }: useMapProps) => {
   const initialMapRef = useRef<Map | null>(null);
   const drawRef = useRef<Draw | null>(null);
 
   useGeographic();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const currentMapRef = mapRef.current;
@@ -64,7 +61,7 @@ const useMap = ({
         const geometry = event.feature.getGeometry();
         if (geometry) {
           const wkt = wktFormat.writeGeometry(geometry);
-          setWtk(wkt);
+          dispatch(updateWtk({ coordinates: wkt }));
         }
       });
 
@@ -77,7 +74,7 @@ const useMap = ({
         initialMapRef.current.setTarget(undefined);
       }
     };
-  }, [mapRef, setWtk, geometry]);
+  }, [mapRef, geometry]);
 
   useEffect(() => {
     if (initialMapRef.current && drawRef.current) {

@@ -4,18 +4,20 @@ import { ResizableBox } from "react-resizable";
 import MenuItem from "./menu-item";
 import { useDispatch } from "react-redux";
 import { updateGeometry } from "@/src/redux/slices/geometrySlice";
-import { startDrawing, stopDrawing } from "@/src/redux/slices/drawSlice";
+import { startDrawing } from "@/src/redux/slices/drawSlice";
 import { GeometryType } from "@/src/types";
 import GeometryCreationForm from "@/src/components/GeometryCreationForm";
+import { updateWtk } from "@/src/redux/slices/wtkSlice";
 
 const Menu = () => {
-  const [selectedItem, setSelectedItem] = useState("");
+  const [selectedItem, setSelectedItem] = useState<string>("");
   const dispatch = useDispatch();
   const handleItemClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const geometry = e.currentTarget.name as GeometryType;
     setSelectedItem(geometry);
     dispatch(updateGeometry(geometry));
     dispatch(startDrawing());
+    dispatch(updateWtk({ coordinates: "" }));
   };
   const height = typeof window !== "undefined" ? window.innerHeight : 1000;
   return (

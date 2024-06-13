@@ -1,12 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "./Input";
+import { useSelector } from "react-redux";
+import { RootState } from "@/src/redux/store";
 
 const GeometryCreationForm = () => {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<{
+    name: string;
+    creationDate: string;
+    wkt: string[];
+  }>({
     name: "",
     creationDate: "",
-    wkt: "",
+    wkt: [],
   });
+
+  const wtk = useSelector((state: RootState) => state.wtk);
+
+  useEffect(() => {
+    if (wtk.coordinates !== "") {
+      setForm((prevForm) => ({
+        ...prevForm,
+        wkt: [...form.wkt, wtk.coordinates],
+      }));
+    }
+  }, [wtk]);
 
   const handleChange = (name: string, value: string) => {
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
@@ -18,14 +35,14 @@ const GeometryCreationForm = () => {
     setForm({
       name: "",
       creationDate: "",
-      wkt: "",
+      wkt: [],
     });
   };
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col border rounded-xl p-4"
+      className="flex flex-col border rounded-xl p-4 w-full"
     >
       <Input
         name="name"
@@ -44,12 +61,12 @@ const GeometryCreationForm = () => {
       <Input
         title="WTK"
         name="WTK"
-        type="text"
+        type="textbox"
         value={form.wkt}
-        disabled
         setVal={handleChange}
+        disabled
       />
-
+      {console.log(form.wkt)}
       <input
         className="p-4 bg-green-400 w-36 self-center my-5 rounded-lg"
         type="submit"
