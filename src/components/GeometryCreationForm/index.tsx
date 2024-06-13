@@ -66,7 +66,6 @@ const GeometryCreationForm = () => {
         setVal={handleChange}
         disabled
       />
-      {console.log(form.wkt)}
       <input
         className="p-4 bg-green-400 w-36 self-center my-5 rounded-lg"
         type="submit"
