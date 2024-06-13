@@ -8,13 +8,21 @@ import Draw from "ol/interaction/Draw";
 import WKT from "ol/format/WKT";
 import OSM from "ol/source/OSM";
 import { useGeographic } from "ol/proj";
-import { PolandGeoCoordinates } from "@/constants";
+import { PolandGeoCoordinates } from "@/src/constants";
+import { GeometryType } from "@/src/types";
+
 interface useMapProps {
   mapRef: React.RefObject<HTMLDivElement>;
   setWtk: (wkt: string) => void;
   shouldStartDrawing: boolean;
+  geometry: GeometryType;
 }
-const useMap = ({ mapRef, setWtk, shouldStartDrawing }: useMapProps) => {
+const useMap = ({
+  mapRef,
+  setWtk,
+  shouldStartDrawing,
+  geometry,
+}: useMapProps) => {
   const initialMapRef = useRef<Map | null>(null);
   const drawRef = useRef<Draw | null>(null);
 
@@ -43,9 +51,8 @@ const useMap = ({ mapRef, setWtk, shouldStartDrawing }: useMapProps) => {
 
       drawRef.current = new Draw({
         source: vectorSource,
-        type: "Point",
+        type: geometry,
       });
-
       const wktFormat = new WKT();
 
       drawRef.current.on("drawend", (event) => {

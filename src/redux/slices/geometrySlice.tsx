@@ -1,19 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { GeometryType } from "@/src/types";
 
-interface initialStateType {
-  geometry: "Point" | "LineString" | "Polygon";
+interface GeometryState {
+  type: GeometryType;
 }
 
-const initialState: initialStateType = {
-  geometry: "Point",
+const initialState: GeometryState = {
+  type: "Point",
 };
 
 const geometrySlice = createSlice({
   name: "geometry",
   initialState,
   reducers: {
-    updateGeometry: (state, action: PayloadAction<initialStateType>) => {
-      state.geometry = action.payload.geometry;
+    updateGeometry: (state, action: PayloadAction<GeometryType>) => {
+      state.type = action.payload;
     },
   },
 });

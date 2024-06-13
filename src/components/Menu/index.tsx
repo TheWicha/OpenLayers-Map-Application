@@ -2,12 +2,17 @@
 import React, { useState } from "react";
 import { ResizableBox } from "react-resizable";
 import MenuItem from "./menu-item";
+import { useDispatch } from "react-redux";
+import { updateGeometry } from "@/src/redux/slices/geometrySlice";
+import { GeometryType } from "@/src/types";
 
 const Menu = () => {
   const [selectedItem, setSelectedItem] = useState("");
-
+  const dispatch = useDispatch();
   const handleItemClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setSelectedItem(e.currentTarget.name);
+    const geometry = e.currentTarget.name as GeometryType;
+    setSelectedItem(geometry);
+    dispatch(updateGeometry(geometry));
   };
 
   return (

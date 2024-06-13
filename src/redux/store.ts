@@ -6,3 +6,9 @@ export const store = configureStore({
     geometry: geometrySlice,
   },
 });
+
+export type GeometryState = ReturnType<typeof store.getState>["geometry"];
+
+export type RootState = {
+  geometry: GeometryState;
+};
