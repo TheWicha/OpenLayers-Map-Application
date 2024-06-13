@@ -9,12 +9,14 @@ import WKT from "ol/format/WKT";
 import OSM from "ol/source/OSM";
 import { useGeographic } from "ol/proj";
 import { PolandGeoCoordinates } from "@/constants";
-
-const useMap = (
-  mapRef: React.RefObject<HTMLDivElement>,
-  setWKT: (wkt: string) => void
-) => {
+interface useMapProps {
+  mapRef: React.RefObject<HTMLDivElement>;
+  setWtk: (wkt: string) => void;
+  shouldStartDrawing: boolean;
+}
+const useMap = ({ mapRef, setWtk, shouldStartDrawing }: useMapProps) => {
   const initialMapRef = useRef<Map | null>(null);
+  const drawRef = useRef<Draw | null>(null);
 
   useGeographic();
 
@@ -39,22 +41,20 @@ const useMap = (
         }),
       });
 
-      const draw = new Draw({
+      drawRef.current = new Draw({
         source: vectorSource,
         type: "Point",
       });
 
       const wktFormat = new WKT();
 
-      draw.on("drawend", (event) => {
+      drawRef.current.on("drawend", (event) => {
         const geometry = event.feature.getGeometry();
         if (geometry) {
           const wkt = wktFormat.writeGeometry(geometry);
-          setWKT(wkt);
+          setWtk(wkt);
         }
       });
-
-      initialMapRef.current.addInteraction(draw);
 
       initialMapRef.current.updateSize();
     }
@@ -63,7 +63,17 @@ const useMap = (
         initialMapRef.current.setTarget(undefined);
       }
     };
-  }, [mapRef, setWKT]);
+  }, [mapRef, setWtk]);
+
+  useEffect(() => {
+    if (initialMapRef.current && drawRef.current) {
+      if (shouldStartDrawing) {
+        initialMapRef.current.addInteraction(drawRef.current);
+      } else {
+        initialMapRef.current.removeInteraction(drawRef.current);
+      }
+    }
+  }, [shouldStartDrawing, initialMapRef, drawRef]);
 
   return initialMapRef.current;
 };

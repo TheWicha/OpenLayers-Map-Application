@@ -6,7 +6,7 @@ const MapComponent = () => {
   const [wtk, setWtk] = useState("");
 
   const mapRef = useRef(null);
-  useMap(mapRef, setWtk);
+  useMap({ mapRef, setWtk, shouldStartDrawing: false });
 
   return <div ref={mapRef} className="w-full h-screen" />;
 };
