@@ -61,7 +61,7 @@ const formSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(submitForm.fulfilled, (state, action) => {
-      console.log("poszło!");
+      alert("Form submitted successfully");
     });
   },
 });

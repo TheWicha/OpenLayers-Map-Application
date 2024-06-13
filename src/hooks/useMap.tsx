@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import Map from "ol/Map";
 import View from "ol/View";
 import TileLayer from "ol/layer/Tile";
@@ -12,7 +12,7 @@ import { PolandGeoCoordinates } from "@/src/constants";
 import { GeometryType } from "@/src/types";
 import { useDispatch } from "react-redux";
 import { updateWtk } from "@/src/redux/slices/wtkSlice";
-
+import Feature from "ol/Feature";
 interface useMapProps {
   mapRef: React.RefObject<HTMLDivElement>;
   shouldStartDrawing: boolean;
@@ -86,7 +86,20 @@ const useMap = ({ mapRef, shouldStartDrawing, geometry }: useMapProps) => {
     }
   }, [shouldStartDrawing, initialMapRef, drawRef]);
 
-  return initialMapRef.current;
+  const clearDrawings = () => {
+    if (initialMapRef.current) {
+      const layers = initialMapRef.current.getLayers().getArray();
+      const vectorLayer = layers.find(
+        (layer) => layer instanceof VectorLayer
+      ) as VectorLayer<Feature>;
+      if (vectorLayer) {
+        const vectorSource = vectorLayer.getSource() as VectorSource<Feature>;
+        vectorSource.clear();
+      }
+    }
+  };
+
+  return { map: initialMapRef.current, clearDrawings };
 };
 
 export default useMap;
