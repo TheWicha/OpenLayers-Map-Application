@@ -16,14 +16,14 @@ const Menu = () => {
     dispatch(updateGeometry(geometry));
     dispatch(startDrawing());
   };
-
+  const height = typeof window !== "undefined" ? window.innerHeight : 1000;
   return (
     <div className="h-full">
       <ResizableBox
         width={200}
-        height={1000}
+        height={height}
         minConstraints={[200, 1000]}
-        maxConstraints={[400, 100]}
+        maxConstraints={[400, height]}
         resizeHandles={["e"]}
       >
         <div className="w-full p-8 flex gap-4 flex-col">
