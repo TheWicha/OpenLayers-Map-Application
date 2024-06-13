@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h6">My Header</Typography>
+        <Typography variant="h6">OpenLayers Map Application</Typography>
       </Toolbar>
     </AppBar>
   );

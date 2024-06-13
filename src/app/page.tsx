@@ -2,7 +2,7 @@ import MapComponent from "@/components/Map";
 
 export default function Home() {
   return (
-    <div>
+    <div className="w-full h-full">
       <MapComponent />
     </div>
   );
