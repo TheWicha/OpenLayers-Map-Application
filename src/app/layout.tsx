@@ -9,7 +9,7 @@ import Providers from "../redux/Providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Recruitment Task",
+  title: "Daniel Wiśniewski - Recruitment Task",
   description: "OpenLayers Map Application",
 };
 
