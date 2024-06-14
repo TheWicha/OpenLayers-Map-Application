@@ -19,13 +19,13 @@ const Menu = () => {
     dispatch(startDrawing());
     dispatch(updateWtk({ coordinates: "" }));
   };
-  const height = typeof window !== "undefined" ? window.innerHeight : 1000;
+  const height = typeof window !== "undefined" ? window.innerHeight : 700;
   return (
     <div className="h-full">
       <ResizableBox
         width={400}
         height={height}
-        minConstraints={[400, 1000]}
+        minConstraints={[400, 700]}
         maxConstraints={[800, height]}
         resizeHandles={["e"]}
       >
