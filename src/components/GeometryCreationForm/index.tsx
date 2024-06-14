@@ -87,7 +87,7 @@ const GeometryCreationForm = () => {
       <Input
         title="WTK"
         name="WTK"
-        type="textbox"
+        type="textarea"
         value={form.wkt}
         setVal={handleChange}
         disabled
