@@ -9,8 +9,6 @@ interface InputProps {
 }
 
 const Input = ({ type, name, disabled, title, wtkValue }: InputProps) => {
-  const today = new Date().toISOString().split("T")[0];
-
   if (type === "textarea") {
     return (
       <label className="flex flex-col items-center">
@@ -35,7 +33,6 @@ const Input = ({ type, name, disabled, title, wtkValue }: InputProps) => {
           className="border p-4 rounded-md w-full "
           required
           disabled={disabled}
-          min={type === "date" ? today : undefined}
         />
       </label>
     );
