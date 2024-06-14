@@ -12,6 +12,7 @@ import { updateWtk } from "@/src/redux/slices/wtkSlice";
 const Menu = () => {
   const [selectedItem, setSelectedItem] = useState<string>("");
   const dispatch = useDispatch();
+
   const handleItemClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const geometry = e.currentTarget.name as GeometryType;
     setSelectedItem(geometry);
@@ -19,14 +20,14 @@ const Menu = () => {
     dispatch(startDrawing());
     dispatch(updateWtk({ coordinates: "" }));
   };
-  const height = typeof window !== "undefined" ? window.innerHeight : 700;
+
   return (
     <div className="h-full">
       <ResizableBox
         width={400}
-        height={height}
+        height={700}
         minConstraints={[400, 700]}
-        maxConstraints={[800, height]}
+        maxConstraints={[800, 700]}
         resizeHandles={["e"]}
       >
         <div className="w-full py-8 px-4 flex gap-4 flex-col items-center">
