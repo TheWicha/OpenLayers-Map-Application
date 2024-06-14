@@ -14,11 +14,15 @@ import { useDispatch } from "react-redux";
 import { updateWtk } from "@/src/redux/slices/wtkSlice";
 import Feature from "ol/Feature";
 interface useMapProps {
-  mapRef: React.RefObject<HTMLDivElement>;
-  shouldStartDrawing: boolean;
-  geometry: GeometryType;
+  mapContainerRef: React.RefObject<HTMLDivElement>;
+  shouldInitiateDrawing: boolean;
+  geometryType: GeometryType;
 }
-const useMap = ({ mapRef, shouldStartDrawing, geometry }: useMapProps) => {
+const useMap = ({
+  mapContainerRef,
+  shouldInitiateDrawing,
+  geometryType,
+}: useMapProps) => {
   const initialMapRef = useRef<Map | null>(null);
   const drawRef = useRef<Draw | null>(null);
 
@@ -26,15 +30,15 @@ const useMap = ({ mapRef, shouldStartDrawing, geometry }: useMapProps) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const currentMapRef = mapRef.current;
-    if (mapRef.current) {
+    const currentMapRef = mapContainerRef.current;
+    if (mapContainerRef.current) {
       const vectorSource = new VectorSource();
       const vectorLayer = new VectorLayer({
         source: vectorSource,
       });
 
       initialMapRef.current = new Map({
-        target: mapRef.current,
+        target: mapContainerRef.current,
         layers: [
           new TileLayer({
             source: new OSM(),
@@ -53,7 +57,7 @@ const useMap = ({ mapRef, shouldStartDrawing, geometry }: useMapProps) => {
 
       drawRef.current = new Draw({
         source: vectorSource,
-        type: geometry,
+        type: geometryType,
       });
       const wktFormat = new WKT();
 
@@ -74,17 +78,17 @@ const useMap = ({ mapRef, shouldStartDrawing, geometry }: useMapProps) => {
         initialMapRef.current.setTarget(undefined);
       }
     };
-  }, [mapRef, geometry]);
+  }, [mapContainerRef, geometryType]);
 
   useEffect(() => {
     if (initialMapRef.current && drawRef.current) {
-      if (shouldStartDrawing) {
+      if (shouldInitiateDrawing) {
         initialMapRef.current.addInteraction(drawRef.current);
       } else {
         initialMapRef.current.removeInteraction(drawRef.current);
       }
     }
-  }, [shouldStartDrawing, initialMapRef, drawRef]);
+  }, [shouldInitiateDrawing, initialMapRef, drawRef]);
 
   const clearDrawings = () => {
     if (initialMapRef.current) {

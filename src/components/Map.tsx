@@ -3,32 +3,32 @@ import React, { useEffect, useRef } from "react";
 import useMap from "@/src/hooks/useMap";
 import { useSelector } from "react-redux";
 import { RootState } from "@/src/redux/store";
-import { startDrawings } from "@/src/redux/slices/cleanDrawingsSlice";
+import { initiateDrawings } from "@/src/redux/slices/cleanDrawingsSlice";
 import { useDispatch } from "react-redux";
 
 const MapComponent = () => {
-  const mapRef = useRef(null);
-  const currentGeometry = useSelector((state: RootState) => state.geometry);
-  const draw = useSelector((state: RootState) => state.draw);
-  const shouldClean = useSelector(
+  const mapContainerRef = useRef(null);
+  const selectedGeometry = useSelector((state: RootState) => state.geometry);
+  const drawingState = useSelector((state: RootState) => state.draw);
+  const shouldClearMapDrawings = useSelector(
     (state: RootState) => state.clean.shouldCleanDrawing
   );
   const dispatch = useDispatch();
 
   const { clearDrawings } = useMap({
-    mapRef,
-    shouldStartDrawing: draw.shouldStartDrawing,
-    geometry: currentGeometry.type,
+    mapContainerRef,
+    shouldInitiateDrawing: drawingState.shouldStartDrawing,
+    geometryType: selectedGeometry.type,
   });
 
   useEffect(() => {
-    if (shouldClean) {
+    if (shouldClearMapDrawings) {
       clearDrawings();
-      dispatch(startDrawings());
+      dispatch(initiateDrawings());
     }
-  }, [shouldClean]);
+  }, [shouldClearMapDrawings]);
 
-  return <div ref={mapRef} className="w-full h-screen" />;
+  return <div ref={mapContainerRef} className="w-full h-screen" />;
 };
 
 export default MapComponent;
