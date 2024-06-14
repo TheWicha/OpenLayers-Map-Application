@@ -40,7 +40,9 @@ const GeometryCreationForm = () => {
   const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     if (form.wkt.length === 0) {
-      return setError("Failed to submit the form: pick shape first");
+      return setError(
+        "No shape has been selected. Please select a shape before submitting the form"
+      );
     }
 
     dispatch(submitForm(form))
