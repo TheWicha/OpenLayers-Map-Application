@@ -28,10 +28,10 @@ const GeometryCreationForm = () => {
         wkt: [...form.wkt, wtk.coordinates],
       }));
     }
-    if (form.wkt.length > 0) {
+    if (wtk.coordinates.length > 0) {
       setError("");
     }
-  }, [wtk, form.wkt]);
+  }, [wtk]);
 
   const handleChange = (name: string, value: string) => {
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
