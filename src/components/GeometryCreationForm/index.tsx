@@ -24,7 +24,7 @@ const GeometryCreationForm = () => {
     setFormLoading(true);
     setFormError(null);
 
-    let formData = new FormData(event.currentTarget);
+    const formData = new FormData(event.currentTarget);
     formData.set("wtk", JSON.stringify(wktValues));
 
     if (wtk.coordinates.length === 0) {
