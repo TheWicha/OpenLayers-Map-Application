@@ -20,15 +20,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Providers>
+      <Providers>
+        <body className={inter.className}>
           <Header />
           <div className="flex">
             <Menu />
             {children}
           </div>
-        </Providers>
-      </body>
+        </body>
+      </Providers>
     </html>
   );
 }
