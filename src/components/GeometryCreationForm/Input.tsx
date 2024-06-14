@@ -1,22 +1,15 @@
-import React, { useCallback } from "react";
+import React, { useState } from "react";
 
 interface InputProps {
-  setVal: (name: string, val: string) => void;
-  value: string | string[];
   type: "text" | "date" | "textarea";
   disabled?: boolean;
   name: string;
   title: string;
+  wtkValue?: string[];
 }
 
-const Input = ({ setVal, value, type, name, disabled, title }: InputProps) => {
+const Input = ({ type, name, disabled, title, wtkValue }: InputProps) => {
   const today = new Date().toISOString().split("T")[0];
-
-  const handleChange = useCallback(
-    (e: { target: { name: string; value: string } }) =>
-      setVal(e.target.name, e.target.value),
-    [setVal]
-  );
 
   if (type === "textarea") {
     return (
@@ -24,11 +17,11 @@ const Input = ({ setVal, value, type, name, disabled, title }: InputProps) => {
         {title}:
         <textarea
           name={name}
-          value={value}
           className="border p-4 rounded-md w-full resize max-w-full max-h-full  min-h-24"
           required
           disabled={disabled}
           rows={5}
+          value={wtkValue}
         />
       </label>
     );
@@ -39,8 +32,6 @@ const Input = ({ setVal, value, type, name, disabled, title }: InputProps) => {
         <input
           name={name}
           type={type}
-          value={value}
-          onChange={handleChange}
           className="border p-4 rounded-md w-full "
           required
           disabled={disabled}
