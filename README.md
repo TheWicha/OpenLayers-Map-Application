@@ -1,9 +1,41 @@
 
-## Getting Started
+# Getting Started
 
-First, run the development server:
 
-```bash
+### Cloning the Repository
+
+1. Open your terminal.
+2. Navigate to the directory where you want to clone the repository.
+3. Run the following command:
+   
+   ```
+   git clone <repository_url>
+   ```
+   Replace `<repository_url>` with the URL of the repository you want to clone.
+
+### Installing Dependencies
+After cloning the repository, you need to install the necessary dependencies:
+
+1. Navigate into the cloned repository’s directory:
+   ```
+   cd <repository_name>
+   ```
+   Replace `<repository_name>` with the name of your cloned repository.
+
+2. Install the dependencies:
+```
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+
+Now, you can run the development server as you mentioned:
+
+```
 npm run dev
 # or
 yarn dev
