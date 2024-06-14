@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import Map from "ol/Map";
 import View from "ol/View";
 import TileLayer from "ol/layer/Tile";
@@ -90,7 +90,7 @@ const useMap = ({
     }
   }, [shouldInitiateDrawing, initialMapRef, drawRef]);
 
-  const clearDrawings = () => {
+  const clearDrawings = useCallback(() => {
     if (initialMapRef.current) {
       const layers = initialMapRef.current.getLayers().getArray();
       const vectorLayer = layers.find(
@@ -101,7 +101,7 @@ const useMap = ({
         vectorSource.clear();
       }
     }
-  };
+  }, [initialMapRef]);
 
   return { map: initialMapRef.current, clearDrawings };
 };
