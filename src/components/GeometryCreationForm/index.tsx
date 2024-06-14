@@ -36,8 +36,7 @@ const GeometryCreationForm = () => {
   const handleChange = (name: string, value: string) => {
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
   };
-
-  const handleSubmit = (event: { preventDefault: () => void }) => {
+  const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     if (form.wkt.length === 0) {
       return setError(
@@ -45,24 +44,28 @@ const GeometryCreationForm = () => {
       );
     }
 
-    dispatch(submitForm(form))
-      .then((result) => unwrapResult(result).payload)
-      .then((response) => {
-        console.log(response, "response");
+    try {
+      const result = await dispatch(submitForm(form));
+      const response = unwrapResult(result).payload;
 
-        setForm({
-          name: "",
-          creationDate: "",
-          wkt: [],
-        });
+      console.log(response, "response");
 
-        dispatch(resetForm());
-      })
-      .catch((error: Error) =>
-        console.error("Failed to submit the form: ", error.message)
-      );
-    dispatch(updateWtk({ coordinates: "" }));
-    dispatch(cleanDrawings());
+      setForm({
+        name: "",
+        creationDate: "",
+        wkt: [],
+      });
+
+      dispatch(resetForm());
+      dispatch(updateWtk({ coordinates: "" }));
+      dispatch(cleanDrawings());
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error("Failed to submit the form: ", error.message);
+      } else {
+        console.error("An unexpected error occurred: ", error);
+      }
+    }
   };
 
   return (
