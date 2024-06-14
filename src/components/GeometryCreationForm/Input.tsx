@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 
 interface InputProps {
   setVal: (name: string, val: string) => void;
@@ -11,6 +11,12 @@ interface InputProps {
 
 const Input = ({ setVal, value, type, name, disabled, title }: InputProps) => {
   const today = new Date().toISOString().split("T")[0];
+
+  const handleChange = useCallback(
+    (e: { target: { name: string; value: string } }) =>
+      setVal(e.target.name, e.target.value),
+    [setVal]
+  );
 
   if (type === "textarea") {
     return (
@@ -34,7 +40,7 @@ const Input = ({ setVal, value, type, name, disabled, title }: InputProps) => {
           name={name}
           type={type}
           value={value}
-          onChange={(e) => setVal(e.target.name, e.target.value)}
+          onChange={handleChange}
           className="border p-4 rounded-md w-full "
           required
           disabled={disabled}
