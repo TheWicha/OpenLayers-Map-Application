@@ -19,9 +19,10 @@ const Input = ({ setVal, value, type, name, disabled, title }: InputProps) => {
         <textarea
           name={name}
           value={value}
-          className="border p-4 rounded-md w-full resize max-w-full max-h-full min-w-32 min-h-24"
+          className="border p-4 rounded-md w-full resize max-w-full max-h-full  min-h-24"
           required
           disabled={disabled}
+          rows={5}
         />
       </label>
     );
