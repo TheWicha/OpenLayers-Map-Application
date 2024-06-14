@@ -92,7 +92,7 @@ const GeometryCreationForm = () => {
         setVal={handleChange}
         disabled
       />
-      <div className="h-6">
+      <div className="h-12 p-2">
         {error && <p className=" text-red-500">{error}</p>}
       </div>
 
