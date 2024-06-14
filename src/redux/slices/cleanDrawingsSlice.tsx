@@ -15,12 +15,12 @@ const cleanSlice = createSlice({
     cleanDrawings: (state) => {
       state.shouldCleanDrawing = true;
     },
-    startDrawings: (state) => {
+    initiateDrawings: (state) => {
       state.shouldCleanDrawing = false;
     },
   },
 });
 
-export const { cleanDrawings, startDrawings } = cleanSlice.actions;
+export const { cleanDrawings, initiateDrawings } = cleanSlice.actions;
 
 export default cleanSlice.reducer;
