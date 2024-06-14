@@ -31,7 +31,7 @@ const GeometryCreationForm = () => {
     if (form.wkt.length > 0) {
       setError("");
     }
-  }, [wtk]);
+  }, [wtk, form.wkt]);
 
   const handleChange = (name: string, value: string) => {
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
