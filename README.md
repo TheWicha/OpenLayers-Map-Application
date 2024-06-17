@@ -9,9 +9,9 @@
 3. Run the following command:
    
    ```
-   git clone <repository_url>
+   git clone https://github.com/TheWicha/OpenLayers-Map-Application.git
    ```
-   Replace `<repository_url>` with the URL of the repository you want to clone.
+  
 
 ### Installing Dependencies
 After cloning the repository, you need to install the necessary dependencies:
